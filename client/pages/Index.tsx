@@ -2,30 +2,42 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, Sparkles, Brain, Zap, Shield, Send, Bot, User, Loader2, Copy, RefreshCw } from "lucide-react";
+import {
+  MessageCircle,
+  Sparkles,
+  Brain,
+  Zap,
+  Shield,
+  Send,
+  Bot,
+  User,
+  Loader2,
+  Copy,
+  RefreshCw,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   id: string;
   text: string;
-  sender: 'user' | 'bot';
+  sender: "user" | "bot";
   timestamp: Date;
 }
 
 export default function Index() {
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: '1',
-      text: 'Halo! Saya adalah FinanceAI, asisten AI yang khusus membantu pertanyaan seputar keuangan. Silakan tanyakan tentang budgeting, investasi, menabung, atau topik finansial lainnya. Bagaimana saya bisa membantu Anda hari ini?',
-      sender: 'bot',
-      timestamp: new Date()
-    }
+      id: "1",
+      text: "Halo! Saya adalah FinanceAI, asisten AI yang khusus membantu pertanyaan seputar keuangan. Silakan tanyakan tentang budgeting, investasi, menabung, atau topik finansial lainnya. Bagaimana saya bisa membantu Anda hari ini?",
+      sender: "bot",
+      timestamp: new Date(),
+    },
   ]);
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [sessionId] = useState(() => 'session_' + Date.now()); // Session ID untuk memory
+  const [sessionId] = useState(() => "session_" + Date.now()); // Session ID untuk memory
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -33,12 +45,14 @@ export default function Index() {
     "Bagaimana cara membuat budget bulanan yang efektif?",
     "Investasi apa yang cocok untuk pemula?",
     "Tips menabung untuk dana darurat",
-    "Cara mengelola hutang dengan bijak"
+    "Cara mengelola hutang dengan bijak",
   ];
 
   useEffect(() => {
     if (scrollAreaRef.current) {
-      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+      const scrollContainer = scrollAreaRef.current.querySelector(
+        "[data-radix-scroll-area-viewport]",
+      );
       if (scrollContainer) {
         scrollContainer.scrollTop = scrollContainer.scrollHeight;
       }
@@ -52,57 +66,57 @@ export default function Index() {
     const userMessage: Message = {
       id: Date.now().toString(),
       text: messageToSend,
-      sender: 'user',
-      timestamp: new Date()
+      sender: "user",
+      timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInputText('');
+    setMessages((prev) => [...prev, userMessage]);
+    setInputText("");
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
+      const response = await fetch("/api/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           message: messageToSend,
           sessionId: sessionId,
-          conversationHistory: messages
+          conversationHistory: messages,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       const data = await response.json();
-      
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: data.response,
-        sender: 'bot',
-        timestamp: new Date()
+        sender: "bot",
+        timestamp: new Date(),
       };
 
-      setMessages(prev => [...prev, botMessage]);
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error("Error sending message:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Maaf, terjadi kesalahan pada sistem. Silakan coba lagi dalam beberapa saat.',
-        sender: 'bot',
-        timestamp: new Date()
+        text: "Maaf, terjadi kesalahan pada sistem. Silakan coba lagi dalam beberapa saat.",
+        sender: "bot",
+        timestamp: new Date(),
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
@@ -113,12 +127,14 @@ export default function Index() {
   };
 
   const clearChat = () => {
-    setMessages([{
-      id: '1',
-      text: 'Chat telah direset. Silakan mulai percakapan baru tentang keuangan!',
-      sender: 'bot',
-      timestamp: new Date()
-    }]);
+    setMessages([
+      {
+        id: "1",
+        text: "Chat telah direset. Silakan mulai percakapan baru tentang keuangan!",
+        sender: "bot",
+        timestamp: new Date(),
+      },
+    ]);
   };
 
   return (
@@ -126,7 +142,7 @@ export default function Index() {
       {/* Aurora Background */}
       <div className="fixed inset-0 aurora-gradient-animated opacity-10 pointer-events-none" />
       <div className="fixed inset-0 bg-gradient-to-br from-aurora-purple/5 via-transparent to-aurora-green/5 pointer-events-none" />
-      
+
       {/* Header */}
       <header className="relative z-10 border-b border-border/50 bg-background/80 backdrop-blur-xl">
         <div className="container flex h-16 items-center justify-between">
@@ -163,17 +179,18 @@ export default function Index() {
             <div className="text-center mb-8">
               <div className="inline-flex items-center px-4 py-2 bg-aurora-purple/10 border border-aurora-purple/20 rounded-full mb-4">
                 <Sparkles className="h-4 w-4 text-aurora-purple mr-2" />
-                <span className="text-sm text-aurora-purple font-medium">Powered by Google Gemini AI</span>
+                <span className="text-sm text-aurora-purple font-medium">
+                  Powered by Google Gemini AI
+                </span>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                AI Assistant untuk{" "}
-                <span className="aurora-text">Keuangan</span>
+                AI Assistant untuk <span className="aurora-text">Keuangan</span>
               </h1>
-              
+
               <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Dapatkan bantuan cerdas untuk mengelola keuangan personal, budgeting, 
-                investasi, dan perencanaan finansial
+                Dapatkan bantuan cerdas untuk mengelola keuangan personal,
+                budgeting, investasi, dan perencanaan finansial
               </p>
             </div>
 
@@ -190,11 +207,13 @@ export default function Index() {
                       </div>
                       <div>
                         <h3 className="font-semibold">FinanceAI Assistant</h3>
-                        <p className="text-xs opacity-90">Khusus membahas topik keuangan</p>
+                        <p className="text-xs opacity-90">
+                          Khusus membahas topik keuangan
+                        </p>
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Messages Area */}
                   <ScrollArea ref={scrollAreaRef} className="flex-1 p-4">
                     <div className="space-y-6">
@@ -203,79 +222,129 @@ export default function Index() {
                           key={message.id}
                           className={cn(
                             "flex",
-                            message.sender === 'user' ? "justify-end" : "justify-start"
+                            message.sender === "user"
+                              ? "justify-end"
+                              : "justify-start",
                           )}
                         >
                           <div
                             className={cn(
                               "max-w-[85%] group relative",
-                              message.sender === 'user' ? "order-2" : "order-1"
+                              message.sender === "user" ? "order-2" : "order-1",
                             )}
                           >
                             <div className="flex items-center space-x-2 mb-2">
-                              {message.sender === 'bot' ? (
+                              {message.sender === "bot" ? (
                                 <div className="flex items-center space-x-2">
                                   <div className="w-6 h-6 aurora-gradient rounded-full flex items-center justify-center">
                                     <Bot className="h-3 w-3 text-background" />
                                   </div>
-                                  <span className="text-xs text-muted-foreground font-medium">FinanceAI</span>
+                                  <span className="text-xs text-muted-foreground font-medium">
+                                    FinanceAI
+                                  </span>
                                 </div>
                               ) : (
                                 <div className="flex items-center space-x-2 ml-auto">
-                                  <span className="text-xs text-muted-foreground font-medium">Anda</span>
+                                  <span className="text-xs text-muted-foreground font-medium">
+                                    Anda
+                                  </span>
                                   <div className="w-6 h-6 bg-muted rounded-full flex items-center justify-center">
                                     <User className="h-3 w-3" />
                                   </div>
                                 </div>
                               )}
                             </div>
-                            
+
                             <div
                               className={cn(
                                 "p-4 rounded-2xl text-sm leading-relaxed relative",
-                                message.sender === 'user'
+                                message.sender === "user"
                                   ? "chat-bubble-gradient text-background rounded-br-sm"
-                                  : "bg-muted/80 text-foreground rounded-bl-sm"
+                                  : "bg-muted/80 text-foreground rounded-bl-sm",
                               )}
                             >
-                              {message.sender === 'bot' ? (
+                              {message.sender === "bot" ? (
                                 <div className="markdown-content">
                                   <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
                                     components={{
-                                      p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                                      ul: ({ children }) => <ul className="mb-2 ml-4 space-y-1">{children}</ul>,
-                                      ol: ({ children }) => <ol className="mb-2 ml-4 space-y-1 list-decimal">{children}</ol>,
+                                      p: ({ children }) => (
+                                        <p className="mb-2 last:mb-0">
+                                          {children}
+                                        </p>
+                                      ),
+                                      ul: ({ children }) => (
+                                        <ul className="mb-2 ml-4 space-y-1">
+                                          {children}
+                                        </ul>
+                                      ),
+                                      ol: ({ children }) => (
+                                        <ol className="mb-2 ml-4 space-y-1 list-decimal">
+                                          {children}
+                                        </ol>
+                                      ),
                                       li: ({ children }) => (
                                         <li className="flex items-start">
-                                          <span className="bullet-point">•</span>
-                                          <span className="flex-1">{children}</span>
+                                          <span className="bullet-point">
+                                            •
+                                          </span>
+                                          <span className="flex-1">
+                                            {children}
+                                          </span>
                                         </li>
                                       ),
-                                      strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
-                                      em: ({ children }) => <em className="italic">{children}</em>,
-                                      h1: ({ children }) => <h1 className="text-lg font-bold mb-2">{children}</h1>,
-                                      h2: ({ children }) => <h2 className="text-md font-semibold mb-2">{children}</h2>,
-                                      h3: ({ children }) => <h3 className="text-sm font-semibold mb-1">{children}</h3>,
+                                      strong: ({ children }) => (
+                                        <strong className="font-semibold text-foreground">
+                                          {children}
+                                        </strong>
+                                      ),
+                                      em: ({ children }) => (
+                                        <em className="italic">{children}</em>
+                                      ),
+                                      h1: ({ children }) => (
+                                        <h1 className="text-lg font-bold mb-2">
+                                          {children}
+                                        </h1>
+                                      ),
+                                      h2: ({ children }) => (
+                                        <h2 className="text-md font-semibold mb-2">
+                                          {children}
+                                        </h2>
+                                      ),
+                                      h3: ({ children }) => (
+                                        <h3 className="text-sm font-semibold mb-1">
+                                          {children}
+                                        </h3>
+                                      ),
                                       code: ({ children, className }) => {
                                         const isInline = !className;
                                         return isInline ? (
-                                          <code className="bg-aurora-purple/10 text-aurora-purple px-1 py-0.5 rounded text-xs font-mono">{children}</code>
+                                          <code className="bg-aurora-purple/10 text-aurora-purple px-1 py-0.5 rounded text-xs font-mono">
+                                            {children}
+                                          </code>
                                         ) : (
-                                          <code className="block bg-muted p-2 rounded text-xs font-mono whitespace-pre-wrap">{children}</code>
+                                          <code className="block bg-muted p-2 rounded text-xs font-mono whitespace-pre-wrap">
+                                            {children}
+                                          </code>
                                         );
                                       },
-                                      blockquote: ({ children }) => <blockquote className="border-l-2 border-aurora-blue pl-3 italic text-muted-foreground">{children}</blockquote>,
+                                      blockquote: ({ children }) => (
+                                        <blockquote className="border-l-2 border-aurora-blue pl-3 italic text-muted-foreground">
+                                          {children}
+                                        </blockquote>
+                                      ),
                                     }}
                                   >
                                     {message.text}
                                   </ReactMarkdown>
                                 </div>
                               ) : (
-                                <p className="whitespace-pre-wrap">{message.text}</p>
+                                <p className="whitespace-pre-wrap">
+                                  {message.text}
+                                </p>
                               )}
-                              
-                              {message.sender === 'bot' && (
+
+                              {message.sender === "bot" && (
                                 <Button
                                   variant="ghost"
                                   size="sm"
@@ -286,20 +355,24 @@ export default function Index() {
                                 </Button>
                               )}
                             </div>
-                            
-                            <div className={cn(
-                              "text-xs text-muted-foreground mt-1",
-                              message.sender === 'user' ? "text-right" : "text-left"
-                            )}>
-                              {message.timestamp.toLocaleTimeString('id-ID', { 
-                                hour: '2-digit', 
-                                minute: '2-digit' 
+
+                            <div
+                              className={cn(
+                                "text-xs text-muted-foreground mt-1",
+                                message.sender === "user"
+                                  ? "text-right"
+                                  : "text-left",
+                              )}
+                            >
+                              {message.timestamp.toLocaleTimeString("id-ID", {
+                                hour: "2-digit",
+                                minute: "2-digit",
                               })}
                             </div>
                           </div>
                         </div>
                       ))}
-                      
+
                       {isLoading && (
                         <div className="flex justify-start">
                           <div className="max-w-[85%]">
@@ -307,13 +380,17 @@ export default function Index() {
                               <div className="w-6 h-6 aurora-gradient rounded-full flex items-center justify-center">
                                 <Bot className="h-3 w-3 text-background" />
                               </div>
-                              <span className="text-xs text-muted-foreground font-medium">FinanceAI</span>
+                              <span className="text-xs text-muted-foreground font-medium">
+                                FinanceAI
+                              </span>
                             </div>
                             <div className="bg-muted/80 p-4 rounded-2xl rounded-bl-sm">
                               <div className="flex items-center space-x-2">
                                 <Loader2 className="h-4 w-4 animate-spin text-aurora-purple" />
                                 <Sparkles className="h-3 w-3 text-aurora-blue animate-pulse" />
-                                <span className="text-sm text-muted-foreground">Sedang mengetik...</span>
+                                <span className="text-sm text-muted-foreground">
+                                  Sedang mengetik...
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -321,7 +398,7 @@ export default function Index() {
                       )}
                     </div>
                   </ScrollArea>
-                  
+
                   {/* Input Area */}
                   <div className="p-4 border-t border-border/50">
                     <div className="flex space-x-3">
@@ -335,7 +412,7 @@ export default function Index() {
                           disabled={isLoading}
                           rows={1}
                           className="w-full bg-input border-border/50 rounded-xl px-4 py-3 pr-12 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-aurora-purple/50 focus:border-aurora-purple/50"
-                          style={{ minHeight: '48px', maxHeight: '120px' }}
+                          style={{ minHeight: "48px", maxHeight: "120px" }}
                         />
                         <div className="absolute bottom-3 right-3 text-xs text-muted-foreground">
                           {inputText.length}/500
@@ -356,7 +433,9 @@ export default function Index() {
                       </p>
                       <div className="flex items-center space-x-1">
                         <Sparkles className="h-3 w-3 text-aurora-purple" />
-                        <span className="text-xs text-muted-foreground">Powered by Gemini AI</span>
+                        <span className="text-xs text-muted-foreground">
+                          Powered by Gemini AI
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -397,28 +476,38 @@ export default function Index() {
                           <Shield className="h-4 w-4 text-background" />
                         </div>
                         <div>
-                          <h4 className="text-sm font-medium">Khusus Keuangan</h4>
-                          <p className="text-xs text-muted-foreground">Fokus 100% pada topik finansial</p>
+                          <h4 className="text-sm font-medium">
+                            Khusus Keuangan
+                          </h4>
+                          <p className="text-xs text-muted-foreground">
+                            Fokus 100% pada topik finansial
+                          </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start space-x-3">
                         <div className="w-8 h-8 aurora-gradient rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
                           <Zap className="h-4 w-4 text-background" />
                         </div>
                         <div>
                           <h4 className="text-sm font-medium">Respon Instan</h4>
-                          <p className="text-xs text-muted-foreground">Powered by Google Gemini</p>
+                          <p className="text-xs text-muted-foreground">
+                            Powered by Google Gemini
+                          </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start space-x-3">
                         <div className="w-8 h-8 aurora-gradient rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
                           <Brain className="h-4 w-4 text-background" />
                         </div>
                         <div>
-                          <h4 className="text-sm font-medium">Mengingat Percakapan</h4>
-                          <p className="text-xs text-muted-foreground">AI yang memahami konteks</p>
+                          <h4 className="text-sm font-medium">
+                            Mengingat Percakapan
+                          </h4>
+                          <p className="text-xs text-muted-foreground">
+                            AI yang memahami konteks
+                          </p>
                         </div>
                       </div>
                     </div>
