@@ -172,3 +172,75 @@
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
 }
+
+@layer components {
+  .markdown-content {
+    @apply text-sm leading-relaxed;
+  }
+
+  .markdown-content p {
+    @apply mb-3 last:mb-0;
+  }
+
+  .markdown-content ul {
+    @apply mb-3 space-y-2;
+  }
+
+  .markdown-content ol {
+    @apply mb-3 space-y-2 list-decimal list-inside;
+  }
+
+  .markdown-content li {
+    @apply leading-relaxed;
+  }
+
+  .markdown-content strong {
+    @apply font-semibold;
+  }
+
+  .markdown-content em {
+    @apply italic;
+  }
+
+  .markdown-content h1, .markdown-content h2, .markdown-content h3 {
+    @apply font-semibold leading-tight;
+  }
+
+  .markdown-content h1 {
+    @apply text-base mb-3;
+  }
+
+  .markdown-content h2 {
+    @apply text-sm mb-2;
+  }
+
+  .markdown-content h3 {
+    @apply text-sm mb-2;
+  }
+
+  .markdown-content code {
+    @apply font-mono text-xs;
+  }
+
+  .markdown-content pre {
+    @apply bg-muted/50 p-3 rounded-lg text-xs font-mono overflow-x-auto;
+  }
+
+  .markdown-content blockquote {
+    @apply border-l-2 pl-3 italic opacity-80;
+  }
+
+  /* Specific styling for bullet points */
+  .markdown-content ul li {
+    @apply flex items-start;
+  }
+
+  .markdown-content ul li::marker {
+    @apply hidden;
+  }
+
+  /* Custom bullet styling */
+  .markdown-content .bullet-point {
+    @apply text-aurora-green text-sm mr-2 mt-0.5 flex-shrink-0;
+  }
+}
