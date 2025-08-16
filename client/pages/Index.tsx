@@ -238,7 +238,37 @@ export default function Index() {
                                   : "bg-muted/80 text-foreground rounded-bl-sm"
                               )}
                             >
-                              <p className="whitespace-pre-wrap">{message.text}</p>
+                              {message.sender === 'bot' ? (
+                                <div className="markdown-content">
+                                  <ReactMarkdown
+                                    remarkPlugins={[remarkGfm]}
+                                    components={{
+                                      p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                                      ul: ({ children }) => <ul className="mb-2 ml-4 space-y-1">{children}</ul>,
+                                      ol: ({ children }) => <ol className="mb-2 ml-4 space-y-1 list-decimal">{children}</ol>,
+                                      li: ({ children }) => <li className="flex items-start"><span className="mr-2 mt-1 text-aurora-green">•</span><span>{children}</span></li>,
+                                      strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
+                                      em: ({ children }) => <em className="italic">{children}</em>,
+                                      h1: ({ children }) => <h1 className="text-lg font-bold mb-2">{children}</h1>,
+                                      h2: ({ children }) => <h2 className="text-md font-semibold mb-2">{children}</h2>,
+                                      h3: ({ children }) => <h3 className="text-sm font-semibold mb-1">{children}</h3>,
+                                      code: ({ children, className }) => {
+                                        const isInline = !className;
+                                        return isInline ? (
+                                          <code className="bg-aurora-purple/10 text-aurora-purple px-1 py-0.5 rounded text-xs font-mono">{children}</code>
+                                        ) : (
+                                          <code className="block bg-muted p-2 rounded text-xs font-mono whitespace-pre-wrap">{children}</code>
+                                        );
+                                      },
+                                      blockquote: ({ children }) => <blockquote className="border-l-2 border-aurora-blue pl-3 italic text-muted-foreground">{children}</blockquote>,
+                                    }}
+                                  >
+                                    {message.text}
+                                  </ReactMarkdown>
+                                </div>
+                              ) : (
+                                <p className="whitespace-pre-wrap">{message.text}</p>
+                              )}
                               
                               {message.sender === 'bot' && (
                                 <Button
