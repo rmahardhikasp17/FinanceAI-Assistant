@@ -117,3 +117,58 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 }
+
+@layer utilities {
+  .aurora-gradient {
+    background: linear-gradient(135deg,
+      hsl(var(--aurora-purple)) 0%,
+      hsl(var(--aurora-blue)) 25%,
+      hsl(var(--aurora-green)) 50%,
+      hsl(var(--aurora-teal)) 75%,
+      hsl(var(--aurora-pink)) 100%);
+  }
+
+  .aurora-gradient-animated {
+    background: linear-gradient(-45deg,
+      hsl(var(--aurora-purple)),
+      hsl(var(--aurora-blue)),
+      hsl(var(--aurora-green)),
+      hsl(var(--aurora-teal)),
+      hsl(var(--aurora-pink)));
+    background-size: 400% 400%;
+    animation: aurora-shift 8s ease-in-out infinite;
+  }
+
+  .aurora-text {
+    background: linear-gradient(135deg,
+      hsl(var(--aurora-purple)),
+      hsl(var(--aurora-green)),
+      hsl(var(--aurora-pink)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .aurora-glow {
+    box-shadow: 0 0 30px hsla(var(--aurora-purple), 0.3),
+                0 0 60px hsla(var(--aurora-blue), 0.2),
+                0 0 90px hsla(var(--aurora-green), 0.1);
+  }
+
+  .chat-bubble-gradient {
+    background: linear-gradient(135deg,
+      hsl(var(--aurora-purple)) 0%,
+      hsl(var(--aurora-blue)) 100%);
+  }
+}
+
+@keyframes aurora-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes aurora-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
