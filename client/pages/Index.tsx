@@ -246,7 +246,12 @@ export default function Index() {
                                       p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
                                       ul: ({ children }) => <ul className="mb-2 ml-4 space-y-1">{children}</ul>,
                                       ol: ({ children }) => <ol className="mb-2 ml-4 space-y-1 list-decimal">{children}</ol>,
-                                      li: ({ children }) => <li className="flex items-start"><span className="mr-2 mt-1 text-aurora-green">•</span><span>{children}</span></li>,
+                                      li: ({ children }) => (
+                                        <li className="flex items-start">
+                                          <span className="bullet-point">•</span>
+                                          <span className="flex-1">{children}</span>
+                                        </li>
+                                      ),
                                       strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
                                       em: ({ children }) => <em className="italic">{children}</em>,
                                       h1: ({ children }) => <h1 className="text-lg font-bold mb-2">{children}</h1>,
