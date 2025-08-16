@@ -2,6 +2,13 @@ import { RequestHandler } from "express";
 
 export interface ChatRequest {
   message: string;
+  sessionId?: string;
+  conversationHistory?: Array<{
+    id: string;
+    text: string;
+    sender: 'user' | 'bot';
+    timestamp: Date;
+  }>;
 }
 
 export interface ChatResponse {
