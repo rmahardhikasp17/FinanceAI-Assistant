@@ -55,7 +55,7 @@ Berikan jawaban yang informatif, praktis, dan mudah dipahami dalam bahasa Indone
 
 export const handleChat: RequestHandler = async (req, res) => {
   try {
-    const { message } = req.body as ChatRequest;
+    const { message, sessionId, conversationHistory } = req.body as ChatRequest;
 
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ error: 'Message is required' });
@@ -69,9 +69,23 @@ export const handleChat: RequestHandler = async (req, res) => {
       return res.json(response);
     }
 
+    // Build conversation context from history
+    let conversationContext = '';
+    if (conversationHistory && conversationHistory.length > 1) {
+      // Get last 10 messages for context (excluding the current message)
+      const recentHistory = conversationHistory
+        .slice(-11, -1) // Get last 10 messages before current
+        .map(msg => `${msg.sender === 'user' ? 'User' : 'Assistant'}: ${msg.text}`)
+        .join('\n');
+
+      conversationContext = `\n\nPercakapan sebelumnya:\n${recentHistory}\n\nPertanyaan user saat ini: ${message}`;
+    } else {
+      conversationContext = `\n\nPertanyaan user: ${message}`;
+    }
+
     // Call Google Gemini API
     const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyCAIq3-xe0vsXqQdE8x4YjtmoREo2JhJu8';
-    
+
     const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: {
@@ -80,7 +94,7 @@ export const handleChat: RequestHandler = async (req, res) => {
       body: JSON.stringify({
         contents: [{
           parts: [{
-            text: `${systemPrompt}\n\nPertanyaan user: ${message}`
+            text: `${systemPrompt}${conversationContext}`
           }]
         }],
         generationConfig: {
