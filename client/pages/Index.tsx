@@ -1,191 +1,236 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MessageCircle, Shield, Zap, TrendingUp, DollarSign, PiggyBank, Calculator, CreditCard } from "lucide-react";
+import { MessageCircle, Sparkles, Brain, Zap, Shield, ArrowRight, Send } from "lucide-react";
 import ChatBot from "@/components/ChatBot";
 
 export default function Index() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [previewMessage, setPreviewMessage] = useState('');
+
+  const exampleQuestions = [
+    "Bagaimana cara membuat budget bulanan yang efektif?",
+    "Investasi apa yang cocok untuk pemula?",
+    "Tips menabung untuk dana darurat",
+    "Cara mengelola hutang dengan bijak"
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
+      {/* Aurora Background */}
+      <div className="fixed inset-0 aurora-gradient-animated opacity-10 pointer-events-none" />
+      <div className="fixed inset-0 bg-gradient-to-br from-aurora-purple/5 via-transparent to-aurora-green/5 pointer-events-none" />
+      
       {/* Header */}
-      <header className="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur-md">
+      <header className="relative z-10 border-b border-border/50 bg-background/80 backdrop-blur-xl">
         <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <DollarSign className="h-8 w-8 text-blue-600" />
-            <h1 className="text-xl font-bold text-gray-900">FinanceAI</h1>
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <div className="w-8 h-8 aurora-gradient rounded-lg flex items-center justify-center">
+                <Brain className="h-5 w-5 text-background" />
+              </div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-aurora-green rounded-full animate-pulse" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold aurora-text">FinanceAI</h1>
+              <p className="text-xs text-muted-foreground">AI Assistant</p>
+            </div>
           </div>
           <Button 
             onClick={() => setIsChatOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-aurora-purple hover:bg-aurora-purple/80 text-white px-6 aurora-glow"
           >
             <MessageCircle className="mr-2 h-4 w-4" />
-            Chat Sekarang
+            Chat Now
           </Button>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative py-20 px-4">
-        <div className="container mx-auto text-center">
-          <div className="mx-auto max-w-4xl">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
-              Asisten <span className="text-blue-600">Keuangan</span> AI Anda
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Dapatkan bantuan cerdas untuk mengelola keuangan personal, budgeting, 
-              investasi, dan perencanaan finansial dengan teknologi AI terdepan.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                onClick={() => setIsChatOpen(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-3"
-              >
-                <MessageCircle className="mr-2 h-5 w-5" />
-                Mulai Chat Gratis
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-blue-600 text-blue-600 hover:bg-blue-50 text-lg px-8 py-3"
-              >
-                Pelajari Lebih Lanjut
-              </Button>
+      <main className="relative z-10">
+        {/* Hero Section - Chat Interface Style */}
+        <section className="py-20 px-4">
+          <div className="container max-w-4xl mx-auto text-center">
+            <div className="mb-8">
+              <div className="inline-flex items-center px-4 py-2 bg-aurora-purple/10 border border-aurora-purple/20 rounded-full mb-6">
+                <Sparkles className="h-4 w-4 text-aurora-purple mr-2" />
+                <span className="text-sm text-aurora-purple font-medium">Powered by Google Gemini AI</span>
+              </div>
+              
+              <h1 className="text-6xl font-bold mb-6">
+                AI Assistant untuk{" "}
+                <span className="aurora-text">Keuangan</span>
+              </h1>
+              
+              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Dapatkan bantuan cerdas untuk mengelola keuangan personal, budgeting, 
+                investasi, dan perencanaan finansial dengan teknologi AI terdepan
+              </p>
+            </div>
+
+            {/* Chat Preview Interface */}
+            <div className="max-w-2xl mx-auto mb-12">
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm aurora-glow">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-aurora-green rounded-full animate-pulse" />
+                      <span className="text-sm font-medium">FinanceAI Assistant</span>
+                    </div>
+                    <div className="flex space-x-1">
+                      <div className="w-3 h-3 bg-aurora-purple/30 rounded-full" />
+                      <div className="w-3 h-3 bg-aurora-blue/30 rounded-full" />
+                      <div className="w-3 h-3 bg-aurora-green/30 rounded-full" />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4 mb-6">
+                    <div className="flex justify-start">
+                      <div className="bg-muted/80 p-3 rounded-2xl rounded-bl-sm max-w-[80%]">
+                        <p className="text-sm">
+                          Halo! Saya adalah AI assistant keuangan. Silakan tanyakan tentang budgeting, investasi, atau topik finansial lainnya.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex space-x-2">
+                    <input
+                      type="text"
+                      placeholder="Tanyakan seputar keuangan..."
+                      value={previewMessage}
+                      onChange={(e) => setPreviewMessage(e.target.value)}
+                      className="flex-1 bg-input border-border/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-aurora-purple/50"
+                    />
+                    <Button
+                      onClick={() => setIsChatOpen(true)}
+                      size="icon"
+                      className="aurora-gradient hover:opacity-90 h-12 w-12 rounded-xl"
+                    >
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Quick Start Examples */}
+            <div className="grid md:grid-cols-2 gap-4 mb-12">
+              {exampleQuestions.map((question, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  onClick={() => {
+                    setPreviewMessage(question);
+                    setIsChatOpen(true);
+                  }}
+                  className="p-4 h-auto text-left border-border/50 hover:border-aurora-purple/50 hover:bg-aurora-purple/5 group"
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-sm">{question}</span>
+                    <ArrowRight className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:text-aurora-purple transition-all" />
+                  </div>
+                </Button>
+              ))}
             </div>
           </div>
-        </div>
-        
-        {/* Floating elements */}
-        <div className="absolute top-20 left-10 animate-bounce">
-          <div className="bg-blue-100 p-4 rounded-full">
-            <TrendingUp className="h-8 w-8 text-blue-600" />
-          </div>
-        </div>
-        <div className="absolute top-32 right-16 animate-pulse">
-          <div className="bg-green-100 p-4 rounded-full">
-            <PiggyBank className="h-8 w-8 text-green-600" />
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Mengapa Memilih FinanceAI?
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Chatbot AI yang khusus dirancang untuk membantu semua kebutuhan finansial Anda
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-blue-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Khusus Keuangan</h3>
-                <p className="text-gray-600">
-                  Fokus 100% pada topik finansial. Tidak akan membahas topik lain di luar keuangan.
-                </p>
-              </CardContent>
-            </Card>
+        {/* Features Section */}
+        <section className="py-16 px-4">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">
+                Mengapa Memilih <span className="aurora-text">FinanceAI</span>?
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Pengalaman AI assistant yang dirancang khusus untuk kebutuhan finansial Anda
+              </p>
+            </div>
             
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Zap className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Respon Cepat</h3>
-                <p className="text-gray-600">
-                  Powered by Google Gemini AI untuk memberikan jawaban yang akurat dan cepat.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="p-6 text-center">
-                <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Calculator className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Saran Personal</h3>
-                <p className="text-gray-600">
-                  Dapatkan saran keuangan yang disesuaikan dengan situasi finansial Anda.
-                </p>
-              </CardContent>
-            </Card>
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm hover:aurora-glow transition-all duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 aurora-gradient rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Shield className="h-6 w-6 text-background" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Khusus Keuangan</h3>
+                  <p className="text-muted-foreground">
+                    Fokus 100% pada topik finansial. AI yang terlatih khusus untuk memberikan saran keuangan terbaik.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm hover:aurora-glow transition-all duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 aurora-gradient rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Zap className="h-6 w-6 text-background" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Respon Instan</h3>
+                  <p className="text-muted-foreground">
+                    Powered by Google Gemini untuk memberikan jawaban yang akurat dan responsif dalam hitungan detik.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm hover:aurora-glow transition-all duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 aurora-gradient rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Brain className="h-6 w-6 text-background" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">AI Cerdas</h3>
+                  <p className="text-muted-foreground">
+                    Memahami konteks percakapan dan memberikan saran personal sesuai situasi keuangan Anda.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Topics Section */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Topik yang Bisa Dibahas
+        {/* CTA Section */}
+        <section className="py-20 px-4 relative">
+          <div className="absolute inset-0 aurora-gradient opacity-5" />
+          <div className="container text-center relative z-10">
+            <h2 className="text-4xl font-bold mb-6">
+              Mulai Percakapan dengan <span className="aurora-text">AI Assistant</span>
             </h2>
-            <p className="text-gray-600">
-              Tanyakan apapun seputar keuangan dan finansial
+            <p className="text-muted-foreground mb-8 text-lg max-w-2xl mx-auto">
+              Dapatkan bantuan keuangan yang Anda butuhkan. Gratis dan tersedia 24/7.
             </p>
+            <Button 
+              size="lg"
+              onClick={() => setIsChatOpen(true)}
+              className="aurora-gradient hover:opacity-90 text-background font-semibold px-8 py-3 text-lg aurora-glow"
+            >
+              <MessageCircle className="mr-2 h-5 w-5" />
+              Mulai Chat Sekarang
+            </Button>
           </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: PiggyBank, title: "Menabung", desc: "Tips dan strategi menabung" },
-              { icon: TrendingUp, title: "Investasi", desc: "Panduan investasi untuk pemula" },
-              { icon: Calculator, title: "Budgeting", desc: "Perencanaan anggaran bulanan" },
-              { icon: CreditCard, title: "Kredit & Hutang", desc: "Mengelola kredit dengan bijak" }
-            ].map((topic, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
-                <topic.icon className="h-12 w-12 text-blue-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">{topic.title}</h3>
-                <p className="text-sm text-gray-600">{topic.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-blue-600">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            Siap Mengelola Keuangan Lebih Baik?
-          </h2>
-          <p className="text-blue-100 mb-8 text-lg">
-            Mulai chat dengan AI assistant finansial sekarang juga
-          </p>
-          <Button 
-            size="lg"
-            onClick={() => setIsChatOpen(true)}
-            className="bg-white text-blue-600 hover:bg-blue-50 text-lg px-8 py-3"
-          >
-            <MessageCircle className="mr-2 h-5 w-5" />
-            Mulai Chat Sekarang
-          </Button>
-        </div>
-      </section>
+        </section>
+      </main>
 
       {/* Footer */}
-      <footer className="py-12 px-4 bg-gray-900">
-        <div className="container mx-auto text-center">
+      <footer className="relative z-10 py-12 px-4 border-t border-border/50">
+        <div className="container text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <DollarSign className="h-6 w-6 text-blue-400" />
-            <span className="text-white font-semibold">FinanceAI</span>
+            <div className="w-6 h-6 aurora-gradient rounded-lg flex items-center justify-center">
+              <Brain className="h-4 w-4 text-background" />
+            </div>
+            <span className="aurora-text font-semibold">FinanceAI</span>
           </div>
-          <p className="text-gray-400">
-            © 2024 FinanceAI. Asisten keuangan AI terpercaya.
+          <p className="text-muted-foreground text-sm">
+            © 2024 FinanceAI. AI Assistant untuk keuangan yang lebih baik.
           </p>
         </div>
       </footer>
 
       {/* ChatBot Component */}
-      <ChatBot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      <ChatBot 
+        isOpen={isChatOpen} 
+        onClose={() => setIsChatOpen(false)} 
+        initialMessage={previewMessage}
+        onClearPreview={() => setPreviewMessage('')}
+      />
     </div>
   );
 }
