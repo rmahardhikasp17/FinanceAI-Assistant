@@ -3,14 +3,31 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/spa",
   "installCommand": "pnpm install",
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 30
+    },
+    "api/demo.js": {
+      "maxDuration": 10
+    },
+    "api/ping.js": {
+      "maxDuration": 5
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/$1"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
