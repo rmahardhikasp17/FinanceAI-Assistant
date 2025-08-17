@@ -195,22 +195,22 @@ export const handleChat: RequestHandler = async (req, res) => {
       },
     );
 
-    if (!geminiResponse.ok) {
+    if (!apiResponse.ok) {
       console.error(
-        "Gemini API error:",
-        geminiResponse.status,
-        geminiResponse.statusText,
+        "Language model API error:",
+        apiResponse.status,
+        apiResponse.statusText,
       );
-      throw new Error("Failed to get response from Gemini API");
+      throw new Error("Failed to get response from language model API");
     }
 
-    const geminiData = await geminiResponse.json();
+    const apiData = await apiResponse.json();
 
-    if (!geminiData.candidates || geminiData.candidates.length === 0) {
-      throw new Error("No response generated from Gemini API");
+    if (!apiData.candidates || apiData.candidates.length === 0) {
+      throw new Error("No response generated from language model API");
     }
 
-    const generatedText = geminiData.candidates[0].content.parts[0].text;
+    const generatedText = apiData.candidates[0].content.parts[0].text;
 
     const response: ChatResponse = {
       response: generatedText,
