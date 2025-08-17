@@ -155,7 +155,7 @@ export default function Index() {
             </div>
             <div>
               <h1 className="text-xl font-bold aurora-text">FinanceAI</h1>
-              <p className="text-xs text-muted-foreground">AI Assistant</p>
+              <p className="text-xs text-muted-foreground">Assistant</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -177,15 +177,9 @@ export default function Index() {
         <section className="py-12 px-4">
           <div className="container max-w-6xl mx-auto">
             <div className="text-center mb-8">
-              <div className="inline-flex items-center px-4 py-2 bg-aurora-purple/10 border border-aurora-purple/20 rounded-full mb-4">
-                <Sparkles className="h-4 w-4 text-aurora-purple mr-2" />
-                <span className="text-sm text-aurora-purple font-medium">
-                  Powered by Google Gemini AI
-                </span>
-              </div>
 
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                AI Assistant untuk <span className="aurora-text">Keuangan</span>
+                Asisten <span className="aurora-text">Keuangan</span> Pintar
               </h1>
 
               <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
@@ -431,12 +425,6 @@ export default function Index() {
                       <p className="text-xs text-muted-foreground">
                         Tekan Enter untuk mengirim, Shift+Enter untuk baris baru
                       </p>
-                      <div className="flex items-center space-x-1">
-                        <Sparkles className="h-3 w-3 text-aurora-purple" />
-                        <span className="text-xs text-muted-foreground">
-                          Powered by Gemini AI
-                        </span>
-                      </div>
                     </div>
                   </div>
                 </Card>
@@ -492,7 +480,7 @@ export default function Index() {
                         <div>
                           <h4 className="text-sm font-medium">Respon Instan</h4>
                           <p className="text-xs text-muted-foreground">
-                            Powered by Google Gemini
+                            Respon yang cepat dan akurat
                           </p>
                         </div>
                       </div>
@@ -506,7 +494,7 @@ export default function Index() {
                             Mengingat Percakapan
                           </h4>
                           <p className="text-xs text-muted-foreground">
-                            AI yang memahami konteks
+                            Memahami konteks percakapan
                           </p>
                         </div>
                       </div>
@@ -529,7 +517,7 @@ export default function Index() {
             <span className="aurora-text font-semibold">FinanceAI</span>
           </div>
           <p className="text-muted-foreground text-sm">
-            © 2024 FinanceAI. AI Assistant untuk keuangan yang lebih baik.
+            © 2024 FinanceAI. Asisten keuangan untuk hidup yang lebih baik.
           </p>
         </div>
       </footer>
