@@ -91,7 +91,11 @@ export const handleChat: RequestHandler = async (req, res) => {
     }
 
     // Call Google Gemini API
-    const apiKey = process.env.GEMINI_API_KEY || 'AIzaSyCAIq3-xe0vsXqQdE8x4YjtmoREo2JhJu8';
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+      throw new Error('GEMINI_API_KEY not configured');
+    }
 
     const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
       method: 'POST',
