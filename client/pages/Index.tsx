@@ -176,7 +176,6 @@ export default function Index() {
         <section className="py-12 px-4">
           <div className="container max-w-6xl mx-auto">
             <div className="text-center mb-8">
-
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 Asisten <span className="aurora-text">Keuangan</span> Pintar
               </h1>
@@ -517,8 +516,7 @@ export default function Index() {
           </div>
           <p className="text-muted-foreground text-sm">
             <p>
-              © 2025 FinanceAI. Asisten keuangan untuk hidup yang lebih
-              baik.
+              © 2025 FinanceAI. Asisten keuangan untuk hidup yang lebih baik.
             </p>
             <p>
               <strong>Powered by </strong>
