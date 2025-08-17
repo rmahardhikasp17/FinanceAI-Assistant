@@ -147,7 +147,11 @@ export const handleChat: RequestHandler = async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      throw new Error("Language model API key not configured");
+      console.error("GEMINI_API_KEY environment variable not configured");
+      const response: ChatResponse = {
+        response: "Maaf, sistem sedang dalam konfigurasi. Silakan coba lagi nanti atau hubungi administrator.",
+      };
+      return res.json(response);
     }
 
     const apiResponse = await fetch(
