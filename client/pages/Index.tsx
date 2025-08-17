@@ -514,7 +514,7 @@ export default function Index() {
             </div>
             <span className="aurora-text font-semibold">FinanceAI</span>
           </div>
-          <p className="text-muted-foreground text-sm">
+          <div className="text-muted-foreground text-sm">
             <p>
               © 2025 FinanceAI. Asisten keuangan untuk hidup yang lebih baik.
             </p>
@@ -528,7 +528,7 @@ export default function Index() {
                 <strong>Raihan Mahardhika</strong>
               </a>
             </p>
-          </p>
+          </div>
         </div>
       </footer>
     </div>
