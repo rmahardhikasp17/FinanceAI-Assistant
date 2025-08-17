@@ -1,8 +1,8 @@
-# Fusion Starter
+# Finance AI App
 
-A production-ready full-stack React application template with integrated Express server, featuring React Router 6 SPA mode, TypeScript, Vitest, Zod and modern tooling.
+A production-ready full-stack React application for financial assistance with integrated Express server, featuring React Router 6 SPA mode, TypeScript, Vitest, Zod and modern tooling.
 
-While the starter comes with a express server, only create endpoint when strictly neccesary, for example to encapsulate logic that must leave in the server, such as private keys handling, or certain DB operations, db...
+The application includes an express server backend to handle chat processing and financial assistance logic.
 
 ## Tech Stack
 
@@ -152,7 +152,7 @@ const data: MyRouteResponse = await response.json();
 
 - **Standard**: `pnpm build`
 - **Binary**: Self-contained executables (Linux, macOS, Windows)
-- **Cloud Deployment**: Use either Netlify or Vercel via their MCP integrations for easy deployment. Both providers work well with this starter template.
+- **Cloud Deployment**: Use either Netlify or Vercel for easy deployment. Both providers work well with this application.
 
 ## Architecture Notes
 

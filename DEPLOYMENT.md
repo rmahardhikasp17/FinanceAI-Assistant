@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-1. **Gemini API Key**: Get your API key from [Google AI Studio](https://ai.google.dev/)
+1. **API Key**: Get your language model API key from your preferred provider
 
 ### Step-by-Step Deployment
 
@@ -17,7 +17,7 @@
    In your Vercel dashboard, go to your project settings and add the following environment variable:
 
    ```
-   GEMINI_API_KEY=your_actual_gemini_api_key_here
+   GEMINI_API_KEY=your_actual_api_key_here
    ```
 
 3. **Deploy**
@@ -29,7 +29,7 @@
 
 ```
 ├── api/                    # Vercel API functions
-│   ├── chat.js            # Chat endpoint for Gemini AI
+│   ├── chat.js            # Chat endpoint for language processing
 │   └── demo.js            # Demo endpoint
 ├── client/                # React frontend
 ├── vercel.json            # Vercel configuration
@@ -38,8 +38,8 @@
 
 ### Features
 
-- **Finance AI Chatbot**: AI assistant specifically for financial topics
-- **Google Gemini Integration**: Powered by Google's Gemini AI model
+- **Finance Chatbot**: Digital assistant specifically for financial topics
+- **Smart Processing**: Advanced language processing capabilities
 - **Memory**: Conversations are remembered within sessions
 - **Finance-focused**: Only responds to finance-related questions
 - **Indonesian Language**: Optimized for Indonesian language support
@@ -53,7 +53,7 @@
 
 | Variable         | Description           | Required |
 | ---------------- | --------------------- | -------- |
-| `GEMINI_API_KEY` | Google Gemini API key | Yes      |
+| `GEMINI_API_KEY` | Language model API key | Yes      |
 | `PING_MESSAGE`   | Custom ping message   | No       |
 
 ### Security

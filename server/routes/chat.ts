@@ -85,7 +85,7 @@ function isFinanceRelated(message: string): boolean {
 }
 
 // System prompt to ensure finance-only responses
-const systemPrompt = `Anda adalah FinanceAI, asisten AI keuangan yang hanya membahas topik seputar keuangan dan finansial.
+const systemPrompt = `Anda adalah FinanceAI, asisten keuangan digital yang khusus membahas topik seputar keuangan dan finansial.
 
 Sebagai FinanceAI, Anda memiliki kemampuan untuk:
 - Mengingat percakapan sebelumnya dalam sesi yang sama
@@ -143,14 +143,18 @@ export const handleChat: RequestHandler = async (req, res) => {
       conversationContext = `\n\nPertanyaan user: ${message}`;
     }
 
-    // Call Google Gemini API
+    // Call language model API
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      throw new Error("GEMINI_API_KEY not configured");
+      console.error("GEMINI_API_KEY environment variable not configured");
+      const response: ChatResponse = {
+        response: "Maaf, sistem sedang dalam konfigurasi. Silakan coba lagi nanti atau hubungi administrator.",
+      };
+      return res.json(response);
     }
 
-    const geminiResponse = await fetch(
+    const apiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
       {
         method: "POST",
@@ -195,22 +199,22 @@ export const handleChat: RequestHandler = async (req, res) => {
       },
     );
 
-    if (!geminiResponse.ok) {
+    if (!apiResponse.ok) {
       console.error(
-        "Gemini API error:",
-        geminiResponse.status,
-        geminiResponse.statusText,
+        "Language model API error:",
+        apiResponse.status,
+        apiResponse.statusText,
       );
-      throw new Error("Failed to get response from Gemini API");
+      throw new Error("Failed to get response from language model API");
     }
 
-    const geminiData = await geminiResponse.json();
+    const apiData = await apiResponse.json();
 
-    if (!geminiData.candidates || geminiData.candidates.length === 0) {
-      throw new Error("No response generated from Gemini API");
+    if (!apiData.candidates || apiData.candidates.length === 0) {
+      throw new Error("No response generated from language model API");
     }
 
-    const generatedText = geminiData.candidates[0].content.parts[0].text;
+    const generatedText = apiData.candidates[0].content.parts[0].text;
 
     const response: ChatResponse = {
       response: generatedText,
