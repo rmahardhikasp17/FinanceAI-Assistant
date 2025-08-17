@@ -30,7 +30,7 @@ export default function Index() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Halo! Saya adalah FinanceAI, asisten AI yang khusus membantu pertanyaan seputar keuangan. Silakan tanyakan tentang budgeting, investasi, menabung, atau topik finansial lainnya. Bagaimana saya bisa membantu Anda hari ini?",
+      text: "Halo! Saya adalah FinanceAI, asisten keuangan yang khusus membantu pertanyaan seputar keuangan. Silakan tanyakan tentang budgeting, investasi, menabung, atau topik finansial lainnya. Bagaimana saya bisa membantu Anda hari ini?",
       sender: "bot",
       timestamp: new Date(),
     },
