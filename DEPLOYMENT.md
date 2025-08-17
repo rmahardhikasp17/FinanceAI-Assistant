@@ -15,7 +15,7 @@
 
 2. **Configure Environment Variables**
    In your Vercel dashboard, go to your project settings and add the following environment variable:
-   
+
    ```
    GEMINI_API_KEY=your_actual_gemini_api_key_here
    ```
@@ -51,10 +51,10 @@
 
 ### Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `GEMINI_API_KEY` | Google Gemini API key | Yes |
-| `PING_MESSAGE` | Custom ping message | No |
+| Variable         | Description           | Required |
+| ---------------- | --------------------- | -------- |
+| `GEMINI_API_KEY` | Google Gemini API key | Yes      |
+| `PING_MESSAGE`   | Custom ping message   | No       |
 
 ### Security
 
