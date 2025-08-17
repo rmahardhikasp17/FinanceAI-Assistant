@@ -143,14 +143,14 @@ export const handleChat: RequestHandler = async (req, res) => {
       conversationContext = `\n\nPertanyaan user: ${message}`;
     }
 
-    // Call Google Gemini API
+    // Call language model API
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      throw new Error("GEMINI_API_KEY not configured");
+      throw new Error("Language model API key not configured");
     }
 
-    const geminiResponse = await fetch(
+    const apiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`,
       {
         method: "POST",
