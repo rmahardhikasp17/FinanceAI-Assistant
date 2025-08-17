@@ -151,7 +151,6 @@ export default function Index() {
               <div className="w-8 h-8 aurora-gradient rounded-lg flex items-center justify-center">
                 <Brain className="h-5 w-5 text-background" />
               </div>
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-aurora-green rounded-full animate-pulse" />
             </div>
             <div>
               <h1 className="text-xl font-bold aurora-text">FinanceAI</h1>
@@ -517,7 +516,20 @@ export default function Index() {
             <span className="aurora-text font-semibold">FinanceAI</span>
           </div>
           <p className="text-muted-foreground text-sm">
-            © 2024 FinanceAI. Asisten keuangan untuk hidup yang lebih baik.
+            <p>
+              © 2025 FinanceAI. Asisten keuangan untuk hidup yang lebih
+              baik.
+            </p>
+            <p>
+              <strong>Powered by </strong>
+              <a
+                href="https://github.com/rmahardhikasp17/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <strong>Raihan Mahardhika</strong>
+              </a>
+            </p>
           </p>
         </div>
       </footer>
